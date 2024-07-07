@@ -15,14 +15,9 @@ import {
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
 } from '@/components/ui/chart'
-
-const chartConfig = {
-  desktop: {
-    label: 'bookings',
-    color: 'hsl(var(--chart-1))',
-  },
-} satisfies ChartConfig
 
 export function AirlineMarketShare({
   token,
@@ -37,6 +32,26 @@ export function AirlineMarketShare({
     params: { ...dateParams },
   })
 
+  const chartConfig = (data || []).reduce(
+    (acc: ChartConfig, item: any, index: number) => {
+      const airline = buildAirlineKey(item.airline)
+      acc[airline] = {
+        label: airline,
+        color: `hsl(var(--chart-${index + 1}))`,
+      }
+      return acc
+    },
+    {} satisfies ChartConfig
+  )
+  const chartData = (data || []).map((item: any) => {
+    const airline = buildAirlineKey(item.airline)
+    return {
+      ...item,
+      airline,
+      fill: `var(--color-${airline})`,
+    }
+  })
+
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
@@ -49,7 +64,11 @@ export function AirlineMarketShare({
           className="mx-auto aspect-square max-h-[300px]"
         >
           <PieChart>
-            <Pie data={data!} dataKey="bookings" />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
+            <Pie data={chartData} dataKey="bookings" nameKey="airline" />
             <ChartLegend
               content={<ChartLegendContent nameKey="airline" />}
               className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
@@ -59,4 +78,8 @@ export function AirlineMarketShare({
       </CardContent>
     </Card>
   )
+}
+
+function buildAirlineKey(airline: string) {
+  return airline.replace(/\s/g, '_').toLowerCase()
 }

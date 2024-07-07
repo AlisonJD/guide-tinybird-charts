@@ -19,36 +19,6 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart'
 
-const chartConfig = {
-  meal_choice: {
-    label: 'Meal choice',
-  },
-  none: {
-    label: 'None',
-    color: 'hsl(var(--chart-1))',
-  },
-  halal: {
-    label: 'Halal',
-    color: 'hsl(var(--chart-2))',
-  },
-  vegetarian: {
-    label: 'Vegetarian',
-    color: 'hsl(var(--chart-3))',
-  },
-  kosher: {
-    label: 'Kosher',
-    color: 'hsl(var(--chart-4))',
-  },
-  gluten: {
-    label: 'Gluten',
-    color: 'hsl(var(--chart-5))',
-  },
-  vegan: {
-    label: 'Vegan',
-    color: 'hsl(var(--chart-6))',
-  },
-} satisfies ChartConfig
-
 export function MealChoicePopularity({
   token,
   dateParams,
@@ -61,6 +31,18 @@ export function MealChoicePopularity({
     token: token,
     params: { ...dateParams },
   })
+
+  const chartConfig = (data || []).reduce(
+    (acc: ChartConfig, item: any, index: number) => {
+      acc[item.meal_choice] = {
+        label: item.meal_choice,
+        color: `hsl(var(--chart-${index + 1}))`,
+      }
+      return acc
+    },
+    {} satisfies ChartConfig
+  )
+
   const chartData = data?.map(item => ({
     ...item,
     fill: `var(--color-${item.meal_choice})`,
