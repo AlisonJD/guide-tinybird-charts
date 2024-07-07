@@ -15,12 +15,37 @@ import {
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
 } from '@/components/ui/chart'
 
 const chartConfig = {
-  desktop: {
-    label: 'bookings',
+  meal_choice: {
+    label: 'Meal choice',
+  },
+  none: {
+    label: 'None',
     color: 'hsl(var(--chart-1))',
+  },
+  halal: {
+    label: 'Halal',
+    color: 'hsl(var(--chart-2))',
+  },
+  vegetarian: {
+    label: 'Vegetarian',
+    color: 'hsl(var(--chart-3))',
+  },
+  kosher: {
+    label: 'Kosher',
+    color: 'hsl(var(--chart-4))',
+  },
+  gluten: {
+    label: 'Gluten',
+    color: 'hsl(var(--chart-5))',
+  },
+  vegan: {
+    label: 'Vegan',
+    color: 'hsl(var(--chart-6))',
   },
 } satisfies ChartConfig
 
@@ -36,6 +61,10 @@ export function MealChoicePopularity({
     token: token,
     params: { ...dateParams },
   })
+  const chartData = data?.map(item => ({
+    ...item,
+    fill: `var(--color-${item.meal_choice})`,
+  }))
 
   return (
     <Card className="flex flex-col">
@@ -46,10 +75,19 @@ export function MealChoicePopularity({
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[300px]"
+          className="mx-auto aspect-square max-h-[250px]"
         >
           <PieChart>
-            <Pie data={data!} dataKey="total" innerRadius={60} />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
+            <Pie
+              data={chartData}
+              dataKey="total"
+              nameKey="meal_choice"
+              innerRadius={60}
+            />
             <ChartLegend
               content={<ChartLegendContent nameKey="meal_choice" />}
               className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
