@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import { useQuery } from "@tinybirdco/charts"
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts"
+import { useQuery } from '@tinybirdco/charts'
+import { CartesianGrid, Line, LineChart, XAxis } from 'recharts'
 
 import {
   Card,
@@ -9,29 +9,41 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
+} from '@/components/ui/chart'
 
-const chartConfig = {} satisfies ChartConfig
+const chartConfig = {
+  desktop: {
+    label: 'bookings',
+    color: 'hsl(var(--chart-1))',
+  },
+} satisfies ChartConfig
 
-export function DailyBookingVolumeTotal({ token, dateParams }: { token: string, dateParams: { date_from: string, date_to: string } }) {
-
+export function DailyBookingVolumeTotal({
+  token,
+  dateParams,
+}: {
+  token: string
+  dateParams: { date_from: string; date_to: string }
+}) {
   const { data, error, loading } = useQuery({
     endpoint: 'https://api.tinybird.co/v0/pipes/bookings_over_time.json',
     token: token,
-    params: { ...dateParams }
+    params: { ...dateParams },
   })
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>DAILY BOOKING VOLUME (TOTAL)</CardTitle>
-        <CardDescription>Volume of flights booked across all airlines per day</CardDescription>
+        <CardDescription>
+          Volume of flights booked across all airlines per day
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>

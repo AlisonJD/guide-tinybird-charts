@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import { useQuery } from "@tinybirdco/charts"
-import { Pie, PieChart } from "recharts"
+import { useQuery } from '@tinybirdco/charts'
+import { Pie, PieChart } from 'recharts'
 
 import {
   Card,
@@ -9,23 +9,32 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
-} from "@/components/ui/chart"
+} from '@/components/ui/chart'
 
+const chartConfig = {
+  desktop: {
+    label: 'bookings',
+    color: 'hsl(var(--chart-1))',
+  },
+} satisfies ChartConfig
 
-const chartConfig = {} satisfies ChartConfig
-
-export function MealChoicePopularity({ token, dateParams }: { token: string, dateParams: { date_from: string, date_to: string } }) {
-
+export function MealChoicePopularity({
+  token,
+  dateParams,
+}: {
+  token: string
+  dateParams: { date_from: string; date_to: string }
+}) {
   const { data, error, loading } = useQuery({
     endpoint: 'https://api.tinybird.co/v0/pipes/meal_choice_distribution.json',
     token: token,
-    params: { ...dateParams }
+    params: { ...dateParams },
   })
 
   return (

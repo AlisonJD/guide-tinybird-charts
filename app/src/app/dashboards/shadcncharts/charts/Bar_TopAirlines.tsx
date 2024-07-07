@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
 import { useQuery } from '@tinybirdco/charts'
 
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from 'recharts'
 
 import {
   Card,
@@ -11,22 +11,31 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
+} from '@/components/ui/chart'
 
-const chartConfig = {} satisfies ChartConfig
-
-export function TopAirlines({ token, dateParams }: { token: string, dateParams: { date_from: string, date_to: string } }) {
-
+const chartConfig = {
+  desktop: {
+    label: 'bookings',
+    color: 'hsl(var(--chart-1))',
+  },
+} satisfies ChartConfig
+export function TopAirlines({
+  token,
+  dateParams,
+}: {
+  token: string
+  dateParams: { date_from: string; date_to: string }
+}) {
   const { data, error, loading } = useQuery({
     endpoint: 'https://api.tinybird.co/v0/pipes/top_airlines.json',
     token: token,
-    params: { ...dateParams }
+    params: { ...dateParams },
   })
 
   return (
@@ -52,7 +61,7 @@ export function TopAirlines({ token, dateParams }: { token: string, dateParams: 
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={value => value.slice(0, 3)}
               hide
             />
             <XAxis dataKey="bookings" type="number" hide />
