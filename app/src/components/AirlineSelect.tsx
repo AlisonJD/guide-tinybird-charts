@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/select"
 
 export function AirlineSelect({ airline, token, dateParams, onChange }: 
-  { airline: string, token: string, dateParams: { date_from: string, date_to: string }, onChange: (value: string) => void })
+  { airline: string, token: string, onChange: (value: string) => void })
 
   {  
     const { data, error, loading } = useQuery({
