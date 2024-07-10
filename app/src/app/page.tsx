@@ -19,14 +19,14 @@ const pageTitle = "Tinybird Charts Demo";
 const token = process.env.NEXT_PUBLIC_TINYBIRD_STATIC_READ_TOKEN ?? '';
 
 export default function StaticDashboard() {
-  const [airline, setAirline] = useState('Fizz');
+  const [airline, setAirline] = useState('');
   const handleAirlineChange = (value: string) => {
     setAirline(value);
   };
 
   const [dateRange, setDateRange] = useState<DateRange>({
     from: new Date(2024, 0, 1),
-    to: new Date(2024, 6, 10),
+    to: new Date(2024, 5, 9),
   })
   const handleDateRangeChange = (value: DateRange) => {
     setDateRange(value);
@@ -46,7 +46,7 @@ export default function StaticDashboard() {
       </div>
       <div>
         <div className="my-4">
-          <AirlineSelect airline={airline} onChange={handleAirlineChange} />
+          <AirlineSelect airline={airline} token={token} dateParams={dateRangeToParams(dateRange)} onChange={handleAirlineChange} />
         </div>
         <BookingsOverTimeByAirline token={token} airline={airline} dateParams={dateRangeToParams(dateRange)} />
       </div>

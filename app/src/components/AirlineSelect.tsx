@@ -2,6 +2,8 @@
 
 import * as React from "react"
 
+import { useQuery } from '@tinybirdco/charts'
+
 import {
   Select,
   SelectContent,
@@ -11,7 +13,18 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-export function AirlineSelect({ airline, onChange }: { airline: string, onChange: (value: string) => void }) {
+export function AirlineSelect({ airline, token, dateParams, onChange }: 
+  { airline: string, token: string, dateParams: { date_from: string, date_to: string }, onChange: (value: string) => void })
+
+  {  
+    const { data, error, loading } = useQuery({
+    endpoint: 'https://api.tinybird.co/v0/pipes/airline_list.json',
+    params: {token, dateParams}
+  })
+
+  if (loading) return <div>Loading...</div>
+  if (error) return <div>Error: {error}</div>
+
   return (
     <Select
       value={airline}
@@ -23,15 +36,11 @@ export function AirlineSelect({ airline, onChange }: { airline: string, onChange
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem value="Fizz">Fizz</SelectItem>
-          <SelectItem value="GAS">GAS</SelectItem>
-          <SelectItem value="Ler Dingus">Ler Dingus</SelectItem>
-          <SelectItem value="EasyPlane">EasyPlane</SelectItem>
-          <SelectItem value="Skittish Airways">Skittish Airways</SelectItem>
-          <SelectItem value="Red Balloon">Red Balloon</SelectItem>
-          <SelectItem value="BrianAir">BrianAir</SelectItem>
+          {data.map(item => (
+            <SelectItem key={item.c} value={item.airline}>{item.airline}</SelectItem>
+            ))}
         </SelectGroup>
       </SelectContent>
     </Select>
   )
-}
+ }

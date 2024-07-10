@@ -1,0 +1,13 @@
+{
+    "host": "https://api.tinybird.co",
+    "id": "b3c97a44-0c3a-405c-b6a3-9ce85ddb9d7b",
+    "name": "charts",
+    "scope": "user",
+    "token": "p.eyJ1IjogImIzYzk3YTQ0LTBjM2EtNDA1Yy1iNmEzLTljZTg1ZGRiOWQ3YiIsICJpZCI6ICI2NGY1Njk5ZS00YjZlLTQzNWUtOTViOC1mNDUyMGY5Zjg3NjkiLCAiaG9zdCI6ICJldV9zaGFyZWQifQ.UzKdDMJ-1yvYP_VSwhfK0E-s-2k1hCxf9NcczWAmEi4",
+    "tokens": {
+        "https://api.tinybird.co": "p.eyJ1IjogImIzYzk3YTQ0LTBjM2EtNDA1Yy1iNmEzLTljZTg1ZGRiOWQ3YiIsICJpZCI6ICI2NGY1Njk5ZS00YjZlLTQzNWUtOTViOC1mNDUyMGY5Zjg3NjkiLCAiaG9zdCI6ICJldV9zaGFyZWQifQ.UzKdDMJ-1yvYP_VSwhfK0E-s-2k1hCxf9NcczWAmEi4"
+    },
+    "user_email": "alison@tinybird.co",
+    "user_id": "b330356e-85ae-4e10-8cbd-71abad0806b8",
+    "version": "4.0.0"
+}

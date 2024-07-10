@@ -22,8 +22,8 @@ export function DatePickerWithRange({
   onChange: (value: DateRange) => void
 }) {
 
-  const fromDate = new Date(2024, 0, 1);
-  const toDate = new Date(2024, 6, 10);
+  const fromDate = undefined;
+  const toDate = undefined;
 
   return (
     <div className={cn("grid gap-2")}>
